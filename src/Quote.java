@@ -1,4 +1,7 @@
 class Quote{
 	
-	public String (Devolver 
+	public String DevolverQuote(String impresion){
+		
+		return impresion;
+	}
 }
