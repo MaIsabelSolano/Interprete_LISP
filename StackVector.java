@@ -85,4 +85,8 @@ public class StackVector<T> implements Stack<T> {
         // TODO Auto-generated method stub
         return lista.toString();
     }
+
+    public void Clear(){
+        lista.clear();
+    }
 }

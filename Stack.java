@@ -19,5 +19,6 @@ public interface Stack<T> {
     // post: regresa el tamano del stack
     boolean Empty();
     // post: true si esta vacio el stack
+    void Clear();
 
 }

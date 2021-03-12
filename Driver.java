@@ -1,13 +1,19 @@
+import java.util.*;
+
 public class Driver {
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String instruccion="";
         interpreterLisp iL = new interpreterLisp();
 
-        iL.readLine("( defun fibonacci ( x ) ( + 1 x ) )");
+        while(!instruccion.equalsIgnoreCase("salir")){
+            System.out.println("\nBienvenido al interprete de lisp");
+            System.out.println("Por favor, escribir el codigo en una unica linea de texto\n");
+            instruccion = scan.nextLine();
 
-        System.out.println(iL.getStackSigns());
+            iL.readLine(instruccion);
 
-        iL.executeLine();
-
-        System.out.println(iL.getStackSigns());
+            iL.executeLine();
+        }
     }
 }

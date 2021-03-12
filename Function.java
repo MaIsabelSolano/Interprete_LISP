@@ -1,10 +1,10 @@
-
+import javax.management.StringValueExp;
 
 public class Function {
-    String name;
-    String parameter;
-    String code;
-    String codeP;
+    private String name;
+    private String parameter;
+    private String code;
+    private String codeP;
     int pValue;
 
     public Function(String nombre, String parametro, String codigo){
@@ -13,15 +13,18 @@ public class Function {
         codeP = codigo;
     }
 
-    public void setpValue(int value){
-        // Buscar el parametro y reemplazarlo por el valor ingresado por el usuario
-        String[] cP = codeP.split("");
-        for (int i = 0; i < cP.length; i++) {
-            if(cP[i].equals(parameter)){
-                cP[i] = String.valueOf(value);
+    public String insertParameter(int parametro){
+        code = "";
+        String separar[] = codeP.split("");
+        for (int i = 0; i < separar.length; i++) {
+            String caracter = separar[i];
+            if(parameter.equalsIgnoreCase(caracter)){
+                separar[i]=String.valueOf(parametro);
             }
-            code += cP[i];
+
+            code += separar[i];
         }
+        return code;
     }
 
     public String getCode() {
@@ -36,11 +39,15 @@ public class Function {
         return name;
     }
 
+    public String getCodeP() {
+        return codeP;
+    }
+
 
     public void show() {
         // TODO Auto-generated method stub
-        System.out.println(name);
-        System.out.println(parameter);
-        System.out.println(codeP);
+        System.out.println("nombre: " + name);
+        System.out.println("parametro: " + parameter);
+        System.out.println("Codigo: " + codeP);
     }
 }
