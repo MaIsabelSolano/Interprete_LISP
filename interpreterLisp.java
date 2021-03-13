@@ -60,7 +60,20 @@ public class interpreterLisp{
                 stackCode.Clear();
                 break;           
             }
+            
+            else if(dato.equals("'") || dato.toUpperCase().equals("QUOTE") ){
+                //quote
+                String expresion = new String();
+                for (int j = 1; j < stackCode.Size(); j++) {
+                    expresion += stackCode.get(j);
+                }
+                Quote quote = new Quote();
+                quote.DevolverQuote(expresion);
+                stackCode.Clear();
 
+                break;
+            }
+            
             // en caso de que no sea ninguna de las anteriores, el codigo se trata de una funcion
             else {
                 if(funciones.isEmpty() == false){
