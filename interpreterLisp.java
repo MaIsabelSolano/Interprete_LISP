@@ -5,6 +5,7 @@ public class interpreterLisp{
     StackVector<String> stackCode = new StackVector<String>();
     ArrayList<Function> funciones = new ArrayList<Function>();
     Scanner scan = new Scanner(System.in);
+    Variable var = new Variable();
 
     public void readLine(String expresion) {
         
@@ -12,7 +13,7 @@ public class interpreterLisp{
         // Se separa la expresion y se mete a la lista de ops
         String[] separado = expresion.split(" ");
         for (int i = 0; i < separado.length; i++) {
-            if(separado[i].equals("(")==false && separado[i].equals(")")==false){
+            if(!separado[i].equals("(") && !separado[i].equals(")")){
                 // System.out.println(separado[i]);
                 stackCode.Push(separado[i]);
                 
@@ -29,7 +30,16 @@ public class interpreterLisp{
             if(dato.equals("+") || dato.equals("/") || dato.equals("*") || dato.equals("-")){
                 Arithmetic arit = new Arithmetic();
                 String expresion = "";
-                
+
+                //verificar si se utiliza alguna variable
+                for (int j = 0; j < stackCode.Size(); j++){
+                    if (var.ExisteVariable(stackCode.get(j))){
+                        //remplazar variable
+                        String llave = stackCode.get(j);
+                        stackCode.Set(j,var.Valor(llave));
+                    }
+                }
+
                 for (int j = 0; j < stackCode.Size(); j++) {
                     expresion += stackCode.get(j);
                 }
@@ -60,10 +70,10 @@ public class interpreterLisp{
                 stackCode.Clear();
                 break;           
             }
-            
+
             else if(dato.equals("'") || dato.toUpperCase().equals("QUOTE") ){
                 //quote
-                String expresion = new String();
+                String expresion = "";
                 for (int j = 1; j < stackCode.Size(); j++) {
                     expresion += stackCode.get(j);
                 }
@@ -73,10 +83,25 @@ public class interpreterLisp{
 
                 break;
             }
-            
+
+            else if (dato.equals("defvar") || dato.equals("setq")){
+                //Definir una variable
+                try {
+                    var.DefinirVariable(stackCode.get(1), stackCode.get(2));
+                    System.out.println(var.Valor(stackCode.get(1)));
+                }
+                catch (IndexOutOfBoundsException e){
+                    System.out.println("No se puede definir una variable vacía");
+                    scan.nextLine();
+                    break;
+                }
+                stackCode.Clear();
+                break;
+            }
+
             // en caso de que no sea ninguna de las anteriores, el codigo se trata de una funcion
             else {
-                if(funciones.isEmpty() == false){
+                if(!funciones.isEmpty()){
                     for (int j = 0; j < funciones.size(); j++) {
                         Function fun = funciones.get(j);
                         if(dato.equals(fun.getName())){
