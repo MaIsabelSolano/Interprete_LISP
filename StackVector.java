@@ -89,4 +89,11 @@ public class StackVector<T> implements Stack<T> {
     public void Clear(){
         lista.clear();
     }
+    
+     /**
+     * Remplazar una variable específica
+     */
+    public void Set(int indice, T valor){
+        lista.set(indice,valor);
+    }
 }
