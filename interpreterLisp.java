@@ -35,6 +35,14 @@ public class interpreterLisp{
                 Arithmetic arit = new Arithmetic();
                 String expresion = "";
                 
+                //verificar si se utiliza alguna variable
+                for (int j = 0; j < stackCode.Size(); j++){
+                    if (var.ExisteVariable(stackCode.get(j))){
+                        //remplazar variable
+                        String llave = stackCode.get(j);
+                        stackCode.Set(j,var.Valor(llave));
+                    }
+                }
                 // Se construye la expresion segun el codigo ingresado
                 while(stackCode.Empty() == false) {
                     expresion += stackCode.Pop();
