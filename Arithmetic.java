@@ -13,7 +13,7 @@ public class Arithmetic {
         ArrayList<String> ops = new ArrayList<String>();
 
         // Se separa la expresion y se mete a la lista de ops
-        String[] separado = expresion.split("");
+        String[] separado = expresion.split(" ");
         for (int i = 0; i < separado.length; i++) {
             ops.add(separado[i]);
         }
