@@ -11,12 +11,21 @@ public class interpreterLisp{
 
         // Se separa la expresion y se mete a la lista de ops
         String[] separado = expresion.split(" ");
+        int contadorParentesis = 0;
         for (int i = 0; i < separado.length; i++) {
-            if(!separado[i].equals("(") && !separado[i].equals(")")){
+            // Quitar los parentesis
+            if(separado[i].equals("(") || separado[i].equals(")")){
                 // System.out.println(separado[i]);
+                contadorParentesis++;
+            } else{
                 stackCode.Push(separado[i]);
-                
             }
+        }
+
+        // En caso de no haber parentesis o no poner los correctos, soltar un error
+        if(contadorParentesis%2 != 0){
+            stackCode.Clear();
+            System.out.println("No has ingresado la cantidad correcta de parentesis");
         }
     }
 
@@ -160,6 +169,11 @@ public class interpreterLisp{
                 }
             }
         }
+    }
+
+    public void cleanLine(){
+        // Limpia la lista de codigo
+        stackCode.Clear();
     }
 
     public StackVector<String> getStackSigns() {

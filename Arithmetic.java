@@ -48,7 +48,9 @@ public class Arithmetic {
                         continuacion = num2 * num1;
                     } else if (operando.equalsIgnoreCase("/")) {
                         continuacion = num2 / num1;
-                    } 
+                    } else{
+                        continue;
+                    }
                     numbers.Push(continuacion);
                 } catch (Exception e) {// En caso de no haber numeros suficientes se agrega otro automaticamente
                     try {
