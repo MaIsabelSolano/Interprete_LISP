@@ -57,6 +57,32 @@ public class interpreterLisp{
                 break;
             }
 
+            if(dato.equals("<") || dato.equals(">") || dato.equals("=")){
+                Predicados pred = new Predicados();
+                String expresion = "";
+                
+                //verificar si se utiliza alguna variable
+                for (int j = 0; j < stackCode.Size(); j++){
+                    if (var.ExisteVariable(stackCode.get(j))){
+                        //remplazar variable
+                        String llave = stackCode.get(j);
+                        stackCode.Set(j,var.Valor(llave));
+                    }
+                }
+                // Se construye la expresion segun el codigo ingresado
+                while(stackCode.Empty() == false) {
+                    expresion += stackCode.Pop();
+                    expresion += " ";
+                }
+
+                // Se inserta en al calculadora
+                System.out.println(pred.Calculo(expresion));
+
+                // Se limpia la lista para recibir otra instruccion
+                stackCode.Clear();
+                break;
+            }
+
             // En caso de detectar un defun
             // Se ejecuta el codgio para guardar una funcion
 
