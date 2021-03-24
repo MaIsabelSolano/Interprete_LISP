@@ -57,29 +57,14 @@ public class interpreterLisp{
                 break;
             }
 
-            if(dato.equals("<") || dato.equals(">") || dato.equals("=")){
-                Predicados pred = new Predicados();
-                String expresion = "";
-                
-                //verificar si se utiliza alguna variable
-                for (int j = 0; j < stackCode.Size(); j++){
-                    if (var.ExisteVariable(stackCode.get(j))){
-                        //remplazar variable
-                        String llave = stackCode.get(j);
-                        stackCode.Set(j,var.Valor(llave));
-                    }
-                }
-                // Se construye la expresion segun el codigo ingresado
-                while(stackCode.Empty() == false) {
-                    expresion += stackCode.Pop();
-                    expresion += " ";
-                }
+            if(dato.equalsIgnoreCase("COND")){
+                Predicados niu = new Predicados(false);
 
-                // Se inserta en al calculadora
-                System.out.println(pred.Calculo(expresion));
+                System.out.println(niu.Pred("cond < 70 80"));
 
-                // Se limpia la lista para recibir otra instruccion
-                stackCode.Clear();
+                if(niu.isErr() == true){
+                    System.out.println("No se logro verificar");
+                }
                 break;
             }
 
