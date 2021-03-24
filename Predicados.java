@@ -41,7 +41,11 @@ public class Predicados {
                     String operando = sign.Pop();
                     // Verificar cual es el signo
                     if (operando.equalsIgnoreCase("<")) {
-                        continuacion = num2 < num1;
+                        if (num2 < num1){
+                            continuacion = true;
+                        }else {
+                            continuacion = false;
+                        }
                     } else if (operando.equalsIgnoreCase(">")) {
                         continuacion = num2 > num1;
                     } else if (operando.equalsIgnoreCase("=")) {
@@ -61,10 +65,10 @@ public class Predicados {
 
         String F;
 
-        boolean resultado = continuacion;
-        if(resultado = true){
+        
+        if(!continuacion == true){
             F = "true";
-        }else{
+        }else {
             F = "false";
         }
         return F;
