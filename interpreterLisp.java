@@ -146,7 +146,13 @@ public class interpreterLisp{
                 break;
             }
 
-            // en caso de que no sea ninguna de las anteriores, el codigo se trata de una funcion
+            else if (var.ExisteVariable(dato)){
+                //si la primera palabra es el nombre de una variable, esta se 
+                //utilizá como llave para devolver e imprimir el dato
+                System.out.println(var.Valor(dato));
+            }
+		
+	    // en caso de que no sea ninguna de las anteriores, el codigo se trata de una funcion
             else {
                 if(!funciones.isEmpty()){
                     for (int j = 0; j < funciones.size(); j++) {
