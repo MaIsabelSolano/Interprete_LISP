@@ -56,14 +56,22 @@ public class interpreterLisp{
                 break;
             }
 
+            // En caso de ser una condicion, se active este codigo
             if(dato.equalsIgnoreCase("COND")){
+		// Crea una instancia de la clase Predicados poniendo la variable de error como false
                 Predicados niu = new Predicados(false);
 
-                System.out.println(niu.Pred("cond < 70 80"));
-
+		// Corre el comando de Predicados Pred
+                System.out.println(niu.Pred(stackCode));
+		
+		// Si la variable de error es true
                 if(niu.isErr() == true){
                     System.out.println("No se logro verificar");
                 }
+
+                // Se limpia el codigo apra una siguiente instruccion
+                stackCode.Clear();
+                
                 break;
             }
 
