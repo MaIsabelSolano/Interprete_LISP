@@ -1,6 +1,13 @@
 import java.util.*;
+/*
+@Author Marco Pablo Orozco Saravia, M. Solano, Jose Pablo Diaz
+*/
 
 public class Driver {
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String instruccion="";

@@ -1,11 +1,17 @@
 import java.util.*;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 public class interpreterLisp{
     StackVector<String> stackCode = new StackVector<String>();
     ArrayList<Function> funciones = new ArrayList<Function>();
     Scanner scan = new Scanner(System.in);
     Variable var = new Variable();
 
+    
+    /** 
+     * @param expresion
+     */
     public void readLine(String expresion) {
         
 
@@ -78,7 +84,7 @@ public class interpreterLisp{
                     System.out.println("No se logro verificar");
                 }
 
-                // Se limpia el codigo apra una siguiente instruccion
+                // Se limpia el codigo para una siguiente instruccion
                 stackCode.Clear();
                 
                 break;
@@ -87,7 +93,8 @@ public class interpreterLisp{
             // En caso de detectar un defun
             // Se ejecuta el codgio para guardar una funcion
 
-            // Probar: ( defun convert-F-C ( x ) ( ( * ( - 32 x ) ( / 5 9.0 ) ) ) )  
+            // Probar: ( defun convert-F-C ( x ) ( ( * ( - 32 x ) ( / 9 5 ) ) ) )
+            // ( defun factorial ( x ) ( cond ( = x 0 ) ( 1 ) ( * x ( factorial ( - x 1 ) ) ) ) )
             if(dato.equals("defun")){
 
                 // Se hace pop de los valores importantes para almacenar la info
@@ -105,6 +112,7 @@ public class interpreterLisp{
 
                 // Los valores estan listos para formar parte de una funcion
                 Function f = new Function(nombre, parametro, codigo);
+                f.verRecursividad();
 
                 // Se añaden las funciones a la lsita de funciones
                 funciones.add(f);
@@ -158,13 +166,33 @@ public class interpreterLisp{
                     for (int j = 0; j < funciones.size(); j++) {
                         Function fun = funciones.get(j);
                         if(dato.equals(fun.getName())){
-                            // se procede a descomponer el codigo para ingresarlo al interperete
-                            // se reemplazara el parametro elegido por el usuario
-                            int valor = Integer.parseInt(stackCode.Pop());
-                            String linea = fun.insertParameter(valor);
-                            stackCode.Clear();
-                            readLine(linea);
-                            executeLine();
+
+                            // En caso de ser recursivo hara este codigo
+                            if(fun.getRecursivo()){
+
+                                // se reemplazara el parametro elegido por el usuario
+                                int valor = Integer.parseInt(stackCode.Pop());
+
+                                // Efectuar recursividad
+                                String resultado="";
+                                for (int k = 0; k <= valor; k++) {
+                                    resultado = fun.efectuarRecursividad(k);
+                                }
+                                System.out.println(resultado);
+                                // Limpiar los stacks
+                                fun.clearStack();
+                            }
+
+                            // En caso de no ser recursiva se hara la operacion normal
+                            else{
+                                 // se procede a descomponer el codigo para ingresarlo al interperete
+                                // se reemplazara el parametro elegido por el usuario
+                                int valor = Integer.parseInt(stackCode.Pop());
+                                String linea = fun.insertParameter(valor);
+                                stackCode.Clear();
+                                readLine(linea);
+                                executeLine();
+                            }
                         }
                     }
                 // Se rompre la lectura ya que ya se cumplio la funcion
@@ -182,10 +210,18 @@ public class interpreterLisp{
         stackCode.Clear();
     }
 
+    
+    /** 
+     * @return StackVector<String>
+     */
     public StackVector<String> getStackSigns() {
         return stackCode;
     }
 
+    
+    /** 
+     * @return ArrayList<Function>
+     */
     public ArrayList<Function> getFunciones() {
         return funciones;
     }

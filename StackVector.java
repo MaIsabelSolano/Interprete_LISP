@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class StackVector<T> implements Stack<T> {
 
-    public ArrayList<T> lista = new ArrayList<T>();
+    private ArrayList<T> lista = new ArrayList<T>();
 
     /**
      * @param info
@@ -78,6 +78,10 @@ public class StackVector<T> implements Stack<T> {
         T elemento = lista.get(index);
         lista.remove(index);
         return elemento;
+    }
+
+    public void add(T valor){
+        lista.add(valor);
     }
 
     @Override

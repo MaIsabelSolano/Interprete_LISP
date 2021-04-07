@@ -38,7 +38,7 @@ public class Predicados {
                     // Se meten en variables
                     float number = Float.parseFloat(ops.get(2));
                     float number2 = Float.parseFloat(ops.get(3));
-                    System.out.println(number + " < " + number2);
+                    //System.out.println(number + " < " + number2);
                     // Se comparan
                     res = number < number2;
                     return res;
@@ -56,7 +56,7 @@ public class Predicados {
                     // Se meten en variables
                     float number = Float.parseFloat(ops.get(2));
                     float number2 = Float.parseFloat(ops.get(3));
-                    System.out.println(number + " > " + number2);
+                    //System.out.println(number + " > " + number2);
                     // Se comparan
                     res = number > number2;
                     return res;
@@ -74,7 +74,7 @@ public class Predicados {
                 if(ops.get(2).matches("[+-]?\\d*(\\.\\d+)?") && ops.get(3).matches("[+-]?\\d*(\\.\\d+)?")){
                     float number = Float.parseFloat(ops.get(2));
                     float number2 = Float.parseFloat(ops.get(3));
-                    System.out.println(number + " = " + number2);
+                    //System.out.println(number + " = " + number2);
                     // Se comparan
                     res = number == number2;
                     return res;
